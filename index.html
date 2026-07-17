@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>위례 메이커 커뮤니티 — 남위례 공유 오피스</title>
+<meta name="description" content="칸막이 없는 오픈형 공유 오피스 위례 메이커 커뮤니티. 일도 하고, 서로 하는 일을 나누며 연결되는 공간. 남위례역 인근, 자유석 하루 1만원.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root {
+    --ink: #111113;
+    --ink-soft: #55555c;
+    --ink-faint: #9a9aa2;
+    --bg: #ffffff;
+    --bg-soft: #f6f6f4;
+    --line: #e8e8e5;
+    --accent: #2c53f5;
+    --radius: 16px;
+    --maxw: 1080px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", "Malgun Gothic", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ── Nav ───────────────────────────── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,.86);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    font-weight: 800; font-size: 20px; letter-spacing: -.02em;
+    text-decoration: none; color: var(--ink);
+  }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a {
+    text-decoration: none; color: var(--ink-soft); font-size: 15px; font-weight: 500;
+    transition: color .15s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    display: inline-block;
+    background: var(--ink); color: #fff !important;
+    padding: 9px 18px; border-radius: 99px; font-size: 14px !important; font-weight: 600 !important;
+    transition: background .15s;
+  }
+  .nav-cta:hover { background: var(--accent); }
+  @media (max-width: 640px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+  /* ── Hero ───────────────────────────── */
+  .hero { padding: 80px 0 88px; }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center;
+  }
+  .hero-art-wrap { min-width: 0; }
+  .hero-art { width: 100%; height: auto; display: block; }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-art-wrap { max-width: 480px; }
+  }
+  .hero-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line); border-radius: 99px;
+    padding: 7px 16px; font-size: 13.5px; font-weight: 600; color: var(--ink-soft);
+    margin-bottom: 28px; background: var(--bg-soft);
+  }
+  .hero-chip .dot { width: 7px; height: 7px; border-radius: 50%; background: #E6186D; }
+  .hero h1 {
+    font-size: clamp(40px, 6.5vw, 68px);
+    font-weight: 800; letter-spacing: -.035em; line-height: 1.15;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p.lead {
+    margin-top: 24px; font-size: clamp(16px, 2.2vw, 19px);
+    color: var(--ink-soft); max-width: 560px;
+  }
+  .hero-actions { margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; text-decoration: none; font-weight: 700; font-size: 16px;
+    padding: 15px 30px; border-radius: 12px; transition: transform .15s, background .15s, color .15s;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--ink); color: #fff; }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-ghost { border: 1px solid var(--line); color: var(--ink); background: var(--bg); }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .hero-meta {
+    margin-top: 56px; display: flex; gap: 40px; flex-wrap: wrap;
+    border-top: 1px solid var(--line); padding-top: 28px;
+  }
+  .hero-meta div strong { display: block; font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
+  .hero-meta div span { font-size: 13.5px; color: var(--ink-faint); font-weight: 500; }
+
+  /* ── Sections ───────────────────────── */
+  section { padding: 88px 0; }
+  .sec-label {
+    font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  .sec-title {
+    font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -.03em; line-height: 1.25;
+  }
+  .sec-desc { margin-top: 16px; color: var(--ink-soft); font-size: 17px; max-width: 620px; }
+
+  /* ── Concept ────────────────────────── */
+  #concept { background: var(--bg-soft); }
+  .cards { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 800px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 32px 28px;
+  }
+  .card .icon {
+    width: 44px; height: 44px; border-radius: 12px; background: var(--ink);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+  }
+  .card .icon svg { width: 22px; height: 22px; stroke: #fff; }
+  .card h3 { font-size: 19px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 10px; }
+  .card p { font-size: 15px; color: var(--ink-soft); }
+  .floorplan {
+    margin-top: 20px; background: var(--bg); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 28px 28px 22px;
+  }
+  .floorplan svg { width: 100%; height: auto; display: block; }
+  .floorplan-cap { margin-top: 14px; font-size: 13.5px; color: var(--ink-faint); text-align: center; }
+
+  /* ── Pricing ────────────────────────── */
+  .price-grid { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 800px) { .price-grid { grid-template-columns: 1fr; } }
+  .price {
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 36px 30px;
+    display: flex; flex-direction: column; position: relative; background: var(--bg);
+  }
+  .price.best { border: 2px solid var(--ink); }
+  .badge {
+    position: absolute; top: -13px; left: 28px;
+    background: var(--accent); color: #fff; font-size: 12.5px; font-weight: 700;
+    padding: 4px 12px; border-radius: 99px;
+  }
+  .price .term { font-size: 15px; font-weight: 700; color: var(--ink-soft); }
+  .price .amount { margin-top: 10px; font-size: 38px; font-weight: 800; letter-spacing: -.03em; }
+  .price .amount small { font-size: 17px; font-weight: 600; color: var(--ink-faint); }
+  .price .note { margin-top: 6px; font-size: 14px; color: var(--ink-faint); min-height: 22px; }
+  .price ul { list-style: none; margin: 24px 0 28px; flex: 1; }
+  .price li {
+    font-size: 14.5px; color: var(--ink-soft); padding: 7px 0 7px 26px; position: relative;
+  }
+  .price li::before {
+    content: ""; position: absolute; left: 0; top: 13px;
+    width: 15px; height: 8px;
+    border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg) scale(.8);
+  }
+  .price .btn { text-align: center; padding: 13px 0; }
+
+  /* ── Location ───────────────────────── */
+  #location { background: var(--bg-soft); }
+  .loc-grid { margin-top: 48px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; }
+  @media (max-width: 800px) { .loc-grid { grid-template-columns: 1fr; } }
+  .loc-card {
+    background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px;
+  }
+  .loc-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 18px; letter-spacing: -.02em; }
+  .loc-row { display: flex; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .loc-row:first-of-type { border-top: 0; }
+  .loc-row .k { flex: 0 0 84px; color: var(--ink-faint); font-weight: 600; }
+  .loc-row .v { color: var(--ink); font-weight: 500; }
+  .map-links { margin-top: 22px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .map-links a {
+    text-decoration: none; font-size: 14px; font-weight: 700;
+    border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; color: var(--ink);
+    transition: border-color .15s;
+  }
+  .map-links a:hover { border-color: var(--ink); }
+
+  /* ── Contact ────────────────────────── */
+  .contact-box {
+    margin-top: 48px; border-radius: 24px; background: var(--ink); color: #fff;
+    padding: clamp(40px, 6vw, 72px); text-align: center;
+  }
+  .contact-box h3 {
+    font-size: clamp(26px, 4vw, 38px); font-weight: 800; letter-spacing: -.03em; line-height: 1.3;
+  }
+  .contact-box p { margin-top: 14px; color: rgba(255,255,255,.65); font-size: 16px; }
+  .contact-box .phone {
+    display: inline-block; margin-top: 32px; text-decoration: none;
+    font-size: clamp(24px, 4vw, 34px); font-weight: 800; letter-spacing: -.01em; color: #fff;
+    border-bottom: 3px solid var(--accent); padding-bottom: 4px;
+    transition: color .15s;
+  }
+  .contact-box .phone:hover { color: var(--accent); }
+  .contact-box .hours { margin-top: 26px; font-size: 14px; color: rgba(255,255,255,.5); }
+
+  /* ── Footer ─────────────────────────── */
+  footer { border-top: 1px solid var(--line); padding: 36px 0; }
+  .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .foot .logo { font-size: 17px; }
+  .foot p { font-size: 13.5px; color: var(--ink-faint); }
+
+  /* ── Reveal animation ───────────────── */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.on { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo">위례 <span>메이커</span> 커뮤니티</a>
+    <nav class="nav-links">
+      <a href="#concept">소개</a>
+      <a href="#pricing">요금</a>
+      <a href="#location">위치</a>
+      <a href="#contact" class="nav-cta">문의하기</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-chip"><span class="dot"></span>8호선 남위례역 인근 · 오픈형 자유석</div>
+        <h1>책상 하나, 의자 하나,<br>그리고 <em>사람들</em>.</h1>
+        <p class="lead">위례 메이커 커뮤니티는 칸막이 없는 오픈형 공유 오피스입니다. 내 장비를 가져와 각자의 일을 하고, 서로 뭘 만드는지 나누고, 자연스럽게 연결되는 공간입니다.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">이용 문의하기</a>
+          <a href="#pricing" class="btn btn-ghost">요금 보기</a>
+        </div>
+      </div>
+      <div class="hero-art-wrap">
+        <svg class="hero-art" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="칸막이 없는 오픈 오피스에서 사람들이 함께 일하며 대화하는 일러스트">
+          <!-- 창문 -->
+          <rect x="36" y="48" width="170" height="122" rx="10" fill="var(--bg-soft)" stroke="var(--line)" stroke-width="2"/>
+          <line x1="121" y1="48" x2="121" y2="170" stroke="var(--line)" stroke-width="2"/>
+          <line x1="36" y1="109" x2="206" y2="109" stroke="var(--line)" stroke-width="2"/>
+          <circle cx="84" cy="84" r="14" fill="none" stroke="var(--accent)" stroke-width="2"/>
+          <!-- 펜던트 조명 -->
+          <line x1="330" y1="16" x2="330" y2="64" stroke="var(--ink)" stroke-width="2"/>
+          <path d="M318 64 h24 l8 22 h-40 z" fill="var(--ink)"/>
+          <line x1="452" y1="16" x2="452" y2="88" stroke="var(--ink)" stroke-width="2"/>
+          <path d="M440 88 h24 l8 22 h-40 z" fill="var(--ink)"/>
+          <!-- 말풍선 1: 코드 공유 -->
+          <polygon points="146,168 156,190 166,168" fill="#fff" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+          <rect x="112" y="128" width="76" height="44" rx="14" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <text x="150" y="156" text-anchor="middle" font-size="17" font-weight="800" fill="var(--accent)">&lt;/&gt;</text>
+          <!-- 말풍선 2: 아이디어 -->
+          <polygon points="268,148 280,170 292,148" fill="#fff" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+          <rect x="236" y="106" width="96" height="46" rx="14" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <circle cx="284" cy="127" r="10" fill="var(--bg-soft)" stroke="var(--ink)" stroke-width="2"/>
+          <line x1="280" y1="140" x2="288" y2="140" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="284" y1="112" x2="284" y2="106" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="271" y1="117" x2="266" y2="113" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="297" y1="117" x2="302" y2="113" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+          <!-- 말풍선 3: 입력 중 -->
+          <polygon points="392,183 402,197 412,183" fill="#fff" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+          <rect x="372" y="150" width="64" height="36" rx="14" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <circle cx="390" cy="168" r="3.5" fill="var(--ink-faint)"/>
+          <circle cx="404" cy="168" r="3.5" fill="var(--ink-faint)"/>
+          <circle cx="418" cy="168" r="3.5" fill="var(--ink-faint)"/>
+          <!-- 사람 1 -->
+          <circle cx="160" cy="214" r="15" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <path d="M145 214 a15 15 0 0 1 30 0 z" fill="var(--ink)"/>
+          <path d="M134 268 q0 -30 26 -30 q26 0 26 30 z" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <!-- 사람 2 (머리 묶음) -->
+          <circle cx="280" cy="214" r="15" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <path d="M265 214 a15 15 0 0 1 30 0 z" fill="var(--ink)"/>
+          <circle cx="280" cy="195" r="5" fill="var(--ink)"/>
+          <path d="M254 268 q0 -30 26 -30 q26 0 26 30 z" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <!-- 사람 3 -->
+          <circle cx="400" cy="214" r="15" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <path d="M385 214 a15 15 0 0 1 30 0 z" fill="var(--ink)"/>
+          <path d="M374 268 q0 -30 26 -30 q26 0 26 30 z" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <!-- 노트북 -->
+          <rect x="140" y="242" width="40" height="26" rx="4" fill="var(--bg-soft)" stroke="var(--ink)" stroke-width="2"/>
+          <circle cx="160" cy="255" r="3" fill="var(--accent)"/>
+          <rect x="260" y="242" width="40" height="26" rx="4" fill="var(--bg-soft)" stroke="var(--ink)" stroke-width="2"/>
+          <circle cx="280" cy="255" r="3" fill="var(--accent)"/>
+          <rect x="380" y="242" width="40" height="26" rx="4" fill="var(--bg-soft)" stroke="var(--ink)" stroke-width="2"/>
+          <circle cx="400" cy="255" r="3" fill="var(--accent)"/>
+          <!-- 머그컵 -->
+          <rect x="222" y="252" width="12" height="16" rx="2" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <path d="M234 256 q7 0 7 5 t-7 5" fill="none" stroke="var(--ink)" stroke-width="2"/>
+          <rect x="342" y="252" width="12" height="16" rx="2" fill="#fff" stroke="var(--ink)" stroke-width="2"/>
+          <path d="M354 256 q7 0 7 5 t-7 5" fill="none" stroke="var(--ink)" stroke-width="2"/>
+          <!-- 테이블 -->
+          <rect x="64" y="268" width="432" height="10" rx="5" fill="var(--ink)"/>
+          <rect x="84" y="278" width="4" height="112" fill="var(--ink)"/>
+          <rect x="472" y="278" width="4" height="112" fill="var(--ink)"/>
+          <!-- 화분 -->
+          <path d="M525 364 C 522 336 512 320 498 310" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M525 364 C 528 330 540 318 552 310" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M525 364 C 525 332 525 316 526 300" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M508 390 h34 l-5 -28 h-24 z" fill="var(--ink)"/>
+          <!-- 바닥 -->
+          <line x1="16" y1="390" x2="544" y2="390" stroke="var(--line)" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div><strong>10,000원</strong><span>1일 이용권</span></div>
+      <div><strong>자유석</strong><span>원하는 자리 어디든</span></div>
+      <div><strong>남위례역</strong><span>8호선 · 위례광장로</span></div>
+    </div>
+  </section>
+
+  <section id="concept">
+    <div class="wrap">
+      <div class="sec-label reveal">Concept</div>
+      <h2 class="sec-title reveal">칸막이를 없앴더니,<br>대화가 시작됐습니다.</h2>
+      <p class="sec-desc reveal">파티션도 벽도 없는 하나의 열린 공간에 책상과 의자만 두었습니다. 각자 자기 일을 하다가, 궁금하면 묻고, 서로 하는 일을 나누는 곳 — 위례 메이커 커뮤니티는 일하는 공간이자 만나는 공간입니다.</p>
+      <div class="cards">
+        <div class="card reveal">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="3" rx="1"/><line x1="5" y1="9" x2="5" y2="19"/><line x1="19" y1="9" x2="19" y2="19"/></svg>
+          </div>
+          <h3>칸막이 없는 오픈 스페이스</h3>
+          <p>파티션 하나 없는 탁 트인 공간입니다. 옆자리 사람이 뭘 하는지 자연스럽게 보이고, 그렇게 대화가 시작됩니다.</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>내 장비 그대로</h3>
+          <p>노트북, 키보드, 마우스 — 손에 익은 장비를 그대로 가져오세요. 책상과 의자는 준비되어 있으니, 앉으면 바로 내 자리가 됩니다.</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9.5" r="2.5"/><path d="M16 14.7c.5-.1 1-.2 1.5-.2 2.8 0 4.5 1.9 4.5 4.3"/></svg>
+          </div>
+          <h3>느슨한 네트워킹</h3>
+          <p>개발자, 디자이너, 창업가, 프리랜서 — 오늘 옆자리에 앉은 사람이 다음 프로젝트의 동료가 될지도 모릅니다.</p>
+        </div>
+      </div>
+      <div class="floorplan reveal">
+        <svg viewBox="0 0 880 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="칸막이 없이 하나로 열린 위례 메이커 커뮤니티 평면 컨셉 일러스트">
+          <!-- 공간 외곽 -->
+          <rect x="20" y="18" width="840" height="204" rx="16" fill="none" stroke="var(--ink)" stroke-width="2"/>
+          <!-- 출입구 -->
+          <rect x="16" y="84" width="8" height="56" fill="var(--bg)"/>
+          <line x1="20" y1="84" x2="64" y2="104" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M64 104 A52 52 0 0 1 20 140" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4 5"/>
+          <!-- 책상 6개 -->
+          <rect x="120" y="52" width="110" height="42" rx="8" fill="var(--bg-soft)" stroke="var(--ink)" stroke-width="2"/>
+          <rect x="385" y="52" width="110" height="42" rx="8" fill="var(--bg-soft)" stroke="var(--ink)" stroke-width="2"/>
+          <rect x="650" y="52" width="110" height="42" rx="8" fill="var(--bg-soft)" stroke="var(--ink)" stroke-width="2"/>
+          <rect x="120" y="146" width="110" height="42" rx="8" fill="var(--bg-soft)" stroke="var(--ink)" stroke-width="2"/>
+          <rect x="385" y="146" width="110" height="42" rx="8" fill="var(--bg-soft)" stroke="var(--ink)" stroke-width="2"/>
+          <rect x="650" y="146" width="110" height="42" rx="8" fill="var(--bg-soft)" stroke="var(--ink)" stroke-width="2"/>
+          <!-- 연결선 -->
+          <path d="M175 118 C 250 84 365 84 440 118" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 7"/>
+          <path d="M440 118 C 500 145 545 158 585 167" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 7"/>
+          <path d="M255 167 C 230 152 200 136 175 118" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 7"/>
+          <path d="M705 118 C 668 140 628 156 585 167" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 7"/>
+          <!-- 사람과 라벨 -->
+          <circle cx="175" cy="118" r="9" fill="var(--ink)"/>
+          <text x="192" y="123" font-size="13" font-weight="600" fill="var(--ink-soft)">개발자</text>
+          <circle cx="440" cy="118" r="9" fill="var(--ink)"/>
+          <text x="457" y="123" font-size="13" font-weight="600" fill="var(--ink-soft)">디자이너</text>
+          <circle cx="705" cy="118" r="9" fill="var(--ink)"/>
+          <text x="722" y="123" font-size="13" font-weight="600" fill="var(--ink-soft)">창업가</text>
+          <circle cx="255" cy="167" r="9" fill="var(--ink)"/>
+          <text x="272" y="172" font-size="13" font-weight="600" fill="var(--ink-soft)">프리랜서</text>
+          <circle cx="585" cy="167" r="9" fill="var(--ink)"/>
+          <text x="602" y="172" font-size="13" font-weight="600" fill="var(--ink-soft)">마케터</text>
+          <!-- 안내 문구 -->
+          <text x="840" y="212" text-anchor="end" font-size="13" font-weight="600" fill="var(--ink-faint)">칸막이 0 · 파티션 0 — 전부 하나의 열린 공간</text>
+        </svg>
+        <p class="floorplan-cap">위례 메이커 커뮤니티 평면 컨셉 — 벽도 칸막이도 없이, 모두가 하나의 공간에서 연결됩니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="sec-label reveal">Pricing</div>
+      <h2 class="sec-title reveal">필요한 만큼만,<br>단순하게.</h2>
+      <p class="sec-desc reveal">모든 이용권은 자유석 기준입니다. 복잡한 옵션 없이 기간만 고르면 됩니다.</p>
+      <div class="price-grid">
+        <div class="price reveal">
+          <div class="term">1일 이용권</div>
+          <div class="amount">10,000<small>원</small></div>
+          <div class="note">커피 두 잔 값으로, 오늘 하루</div>
+          <ul>
+            <li>자유석 1일 이용</li>
+            <li>계약 · 보증금 없음</li>
+            <li>당일 방문 이용 가능</li>
+          </ul>
+          <a href="#contact" class="btn btn-ghost">문의하기</a>
+        </div>
+        <div class="price reveal">
+          <div class="term">1주 이용권</div>
+          <div class="amount">50,000<small>원</small></div>
+          <div class="note">일주일 동안 자유롭게</div>
+          <ul>
+            <li>자유석 7일 이용</li>
+            <li>단기 프로젝트에 알맞게</li>
+            <li>기간 내 자유로운 출입</li>
+          </ul>
+          <a href="#contact" class="btn btn-ghost">문의하기</a>
+        </div>
+        <div class="price best reveal">
+          <div class="badge">BEST</div>
+          <div class="term">1개월 이용권</div>
+          <div class="amount">150,000<small>원</small></div>
+          <div class="note">가장 합리적인 선택</div>
+          <ul>
+            <li>자유석 1개월 이용</li>
+            <li>매일 만나는 동료들이 생깁니다</li>
+            <li>1일권 대비 50% 절약</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">문의하기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="location">
+    <div class="wrap">
+      <div class="sec-label reveal">Location</div>
+      <h2 class="sec-title reveal">남위례역 옆,<br>일과 사람이 모이는 곳.</h2>
+      <p class="sec-desc reveal">8호선 남위례역 인근, 위례 중심 상권에 있습니다. 식당과 카페, 편의점이 도보 거리에 모여 있어 함께 밥 먹고 커피 마시며 하루를 보내기 좋습니다.</p>
+      <div class="loc-grid">
+        <div class="loc-card reveal">
+          <h3>오시는 길</h3>
+          <div class="loc-row"><div class="k">주소</div><div class="v">경기 성남시 수정구 위례광장로 21-12</div></div>
+          <div class="loc-row"><div class="k">상세 위치</div><div class="v">바른교회 옆</div></div>
+          <div class="loc-row"><div class="k">지하철</div><div class="v">8호선 남위례역</div></div>
+          <div class="loc-row"><div class="k">주변</div><div class="v">위례 상권 — 식당 · 카페 · 편의점 밀집</div></div>
+          <div class="map-links">
+            <a href="https://map.naver.com/p/search/%EA%B2%BD%EA%B8%B0%20%EC%84%B1%EB%82%A8%EC%8B%9C%20%EC%88%98%EC%A0%95%EA%B5%AC%20%EC%9C%84%EB%A1%80%EA%B4%91%EC%9E%A5%EB%A1%9C%2021-12" target="_blank" rel="noopener">네이버 지도 ↗</a>
+            <a href="https://map.kakao.com/?q=%EA%B2%BD%EA%B8%B0%20%EC%84%B1%EB%82%A8%EC%8B%9C%20%EC%88%98%EC%A0%95%EA%B5%AC%20%EC%9C%84%EB%A1%80%EA%B4%91%EC%9E%A5%EB%A1%9C%2021-12" target="_blank" rel="noopener">카카오맵 ↗</a>
+          </div>
+        </div>
+        <div class="loc-card reveal">
+          <h3>이런 분께 추천해요</h3>
+          <div class="loc-row"><div class="k">프리랜서</div><div class="v">혼자 일하지만, 혼자이고 싶지 않은 분</div></div>
+          <div class="loc-row"><div class="k">창업가</div><div class="v">아이디어를 나누고 피드백 받고 싶은 분</div></div>
+          <div class="loc-row"><div class="k">재택근무자</div><div class="v">집 말고, 사람 있는 곳에서 일하고 싶은 분</div></div>
+          <div class="loc-row"><div class="k">위례 주민</div><div class="v">동네에서 함께 일할 이웃을 만나고 싶은 분</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box reveal">
+        <h3>지금, 자리 있습니다.<br>전화 한 통이면 충분해요.</h3>
+        <p>이용 문의와 방문 상담 모두 전화로 편하게 문의 주세요.</p>
+        <a class="phone" href="tel:010-3921-3551">010-3921-3551</a>
+        <div class="hours">경기 성남시 수정구 위례광장로 21-12 · 바른교회 옆</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="#" class="logo">위례 <span>메이커</span> 커뮤니티</a>
+    <p>© 2026 위례 메이커 커뮤니티. 경기 성남시 수정구 위례광장로 21-12</p>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  let observerFired = false;
+  const io = new IntersectionObserver((entries) => {
+    observerFired = true;
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+  // 옵저버가 동작하지 않는 환경에서는 전체를 즉시 표시
+  setTimeout(() => { if (!observerFired) els.forEach(el => el.classList.add('on')); }, 1200);
+</script>
+
+</body>
+</html>
